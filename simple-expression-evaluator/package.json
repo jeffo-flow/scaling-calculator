@@ -1,0 +1,28 @@
+{
+  "name": "simple-expression-evaluator",
+  "version": "1.0.0",
+  "description": "simple expression evaluator",
+  "main": "startService.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha -u tdd test"
+  },
+  "keywords": [
+    "simple",
+    "expression",
+    "evaluator"
+  ],
+  "author": "Jeff Olfert",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "connect": "^3.4.1",
+    "request": "^2.69.0",
+    "qs": "^6.0.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "random-expression-generator",
+  "version": "1.0.0",
+  "description": "random expression generator",
+  "main": "startService.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha -u tdd test"
+  },
+  "keywords": [
+    "random",
+    "expression",
+    "generator"
+  ],
+  "author": "Jeff Olfert",
+  "license": "MIT",
+  "dependencies": {
+    "connect": "^3.4.1",
+    "random-js": "^1.0.8"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  }
+}
