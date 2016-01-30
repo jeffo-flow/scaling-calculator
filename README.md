@@ -8,8 +8,11 @@ The expression service handles a http get request and responds with a random int
 There operators are randomly selected from ['+','-','%','*','/']
 
 Examples:
+
 123+23423=
+
 8%21=
+
 788/12312=
 
 
@@ -17,8 +20,11 @@ Examples:
 The answer service handles a get http request with query params representing a (url encoded) math expression
 
 Examples:
+
 question = 123+42=
+
 request = http://localhost/calc?q=123%2B42%3D
+
 response = 165
 
 ### AnswerDispatcher
