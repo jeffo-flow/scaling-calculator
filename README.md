@@ -3,7 +3,7 @@
 The scaling calculator consists of three main components ExpressionService, AnswerService, and the AnswerDispatcher.
 ExpressionService generates random simple math integer based equations such as 123+10= and 45*67=.  AnswerService evaluates simple math expressions and calculates the correct answer.  AnswerDispatcher builds clusters of AnswerService and ExpressionService workers to produce the massive scaling calculator.
 
-![scan](https://cloud.githubusercontent.com/assets/10720300/12694312/e66452bc-c6de-11e5-88e1-86346abae747.jpeg)
+![design](https://cloud.githubusercontent.com/assets/10720300/12694372/8ef141be-c6e0-11e5-8d3f-29aca4b07414.jpeg)
 
 ### ExpressionService
 The expression service handles a http get request and responds with a random integer expression of the form (left-int)(operator)(right-int)=
