@@ -1,17 +1,10 @@
-# scaling-calculator
+# Scaling Calculator
 
-The scaling calculator consists of three main components, a random math expression generating service, an expression
- evaluator service, and an answer dispatcher.  The answer dispatcher requests random math questions from the expression service and
- then evaluates the answer using the evaluator service.
-
-  The answer dispatcher builds clusters of single evaluators, where each evaluator may many expression generators.  The answer dispatcher
-   uses a simple dispatch loop that once per interval (currently 10ms) has each evaluator send concurrent requests to the each of it's random expression
-  generators.  The result is a scalable question and answer system.
-
-## AnswerDispatcher
+The scaling calculator consists of three main components ExpressionService, AnswerService, and the AnswerDispatcher.
+ExpressionService generates random simple math integer based equations such as 123+10= and 45*67=.  AnswerService evaluates simple math expressions and calculates the correct answer.  AnswerDispatcher builds clusters of AnswerService and ExpressionService workers to produce the massive scaling calculator.
 
 ## ExpressionService
-The expression service handles a get http request '/' and responds with a random expression of the form (left-int)(operator)(right-int)=
+The expression service handles a http get request and responds with a random integer expression of the form (left-int)(operator)(right-int)=
 There operators are randomly selected from ['+','-','%','*','/']
 
 Examples:
