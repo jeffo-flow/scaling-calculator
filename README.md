@@ -3,7 +3,7 @@
 The scaling calculator consists of three main components ExpressionService, AnswerService, and the AnswerDispatcher.
 ExpressionService generates random simple math integer based equations such as 123+10= and 45*67=.  AnswerService evaluates simple math expressions and calculates the correct answer.  AnswerDispatcher builds clusters of AnswerService and ExpressionService workers to produce the massive scaling calculator.
 
-## ExpressionService
+### ExpressionService
 The expression service handles a http get request and responds with a random integer expression of the form (left-int)(operator)(right-int)=
 There operators are randomly selected from ['+','-','%','*','/']
 
@@ -13,7 +13,7 @@ Examples:
 788/12312=
 
 
-## AnswerService
+### AnswerService
 The answer service handles a get http request with query params representing a (url encoded) math expression
 
 Examples:
@@ -21,7 +21,7 @@ question = 123+42=
 request = http://localhost/calc?q=123%2B42%3D
 response = 165
 
-## AnswerDispatcher
+### AnswerDispatcher
 The answer dispatcher builds AnswerService clusters.  Each AnswerService asynchronously consumes the output of many ExpressionServices
 It's easy to add more clusters through the addCluster command
 
@@ -37,15 +37,15 @@ d.addCluster(answerServiceConf0, [evalServiceConf0, evalServiceConf1, evalServic
 d.start()
 ```
 
-#Developer setup
+###Developer setup
 $ sh dev-install.sh
 
-#Run All Tests
+###Run All Tests
 $ sh test-all.sh
 
-#Clean up node modules
+###Clean up node modules
 $ sh clean-all.sh
 
-#Performance
+###Performance
 The initial performance easily runs at 200 Requests per second with a single cluster consisting of one evaluator with 3 expression generators.
 To 'go faster' it's very simple, either expand the cluster with more expression generators, or add more clusters.
