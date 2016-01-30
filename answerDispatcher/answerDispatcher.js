@@ -1,8 +1,9 @@
-var http = require('http')
+'use strict'
+
 var request = require('request')
 var querystring = require('qs')
 
-AnswerDispatcher = function AnswerDispatcher()
+var AnswerDispatcher = function AnswerDispatcher()
 {
     this.clusterMap = new Map()
 }

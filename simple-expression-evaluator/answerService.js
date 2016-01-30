@@ -1,10 +1,11 @@
+'use strict'
 var ExpressionEvaluator = require('./evaluator.js')
 var connect = require('connect')
 var connectApp = connect()
 var url = require('url')
 
 
-AnswerService = function AnswerService()
+var AnswerService = function AnswerService()
 {
 }
 
@@ -16,10 +17,17 @@ AnswerService.prototype.start = function start(port)
 
 AnswerService.prototype.answerHandler = function answerHandler(req, res, next)
 {
-    var p = url.parse(req.url, true)
-    var question = p.query['q']
-    var evaluator = new ExpressionEvaluator();
-    var answer = evaluator.answer(question)
+    try {
+        var p = url.parse(req.url, true)
+        var question = p.query['q']
+        var evaluator = new ExpressionEvaluator();
+        var answer = evaluator.answer(question)
+    }
+    catch(e)
+    {
+        answer = 'Error: could not calculate the answer for ' + req.url
+    }
+
     res.end(answer)
     next()
 }

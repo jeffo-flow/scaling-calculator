@@ -1,8 +1,10 @@
+'use strict'
+
 var ExpressionGenerator = require('./generator.js')
 var connect = require('connect')
 var connectApp = connect()
 
-ExpressionService = function ExpressionService()
+var ExpressionService = function ExpressionService()
 {
 }
 

@@ -1,6 +1,6 @@
+'use strict'
 
-
-ExpressionEvaluator = function ExpressionEvaluator()
+var ExpressionEvaluator = function ExpressionEvaluator()
 {
 
 }

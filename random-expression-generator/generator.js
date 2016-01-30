@@ -1,9 +1,10 @@
+'use strict'
 var Random = require('random-js')
 
-function ExpressionGenerator() {
+var ExpressionGenerator = function ExpressionGenerator() {
 
     this.maxInt = Number.MAX_SAFE_INTEGER
-    mt = Random.engines.mt19937()
+    var mt = Random.engines.mt19937()
     mt.autoSeed()
     this.mt = mt
 
