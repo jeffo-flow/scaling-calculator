@@ -22,11 +22,11 @@ request = http://localhost/calc?q=123%2B42%3D
 response = 165
 
 ## AnswerDispatcher
-The answer dispatcher builds AnswerService clusters.  Each AnswerService asyncronously consumes the output of many ExpressionServices
+The answer dispatcher builds AnswerService clusters.  Each AnswerService asynchronously consumes the output of many ExpressionServices
 It's easy to add more clusters through the addCluster command
 
 Example:
-
+```
 var answerServiceConf0 = {id:1, endPoint: 'http://localhost:2020/'}
 var evalServiceConf0 = {id:1, endPoint: 'http://localhost:4040/'}
 var evalServiceConf1 = {id:2, endPoint: 'http://localhost:4141/'}
@@ -35,16 +35,16 @@ var evalServiceConf2 = {id:3, endPoint: 'http://localhost:4242/'}
 var d = new AnswerDispatcher()
 d.addCluster(answerServiceConf0, [evalServiceConf0, evalServiceConf1, evalServiceConf2])
 d.start()
-
+```
 
 #Developer setup
-> sh dev-install.sh
+$ sh dev-install.sh
 
 #Run All Tests
-> sh test-all.sh
+$ sh test-all.sh
 
 #Clean up node modules
-> sh clean-all.sh
+$ sh clean-all.sh
 
 #Performance
 The initial performance easily runs at 200 Requests per second with a single cluster consisting of one evaluator with 3 expression generators.
