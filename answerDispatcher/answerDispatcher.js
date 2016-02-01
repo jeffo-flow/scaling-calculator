@@ -20,27 +20,27 @@ AnswerDispatcher.prototype.start = function start(onFinalAnswer)
 
             for(var i=0; i<expressionList.length; i++)
             {
-                var s = expressionList[i]
-
-                function getAnswerFrom(question) {
-
-                    function onAnswer(answer) {
-                        onFinalAnswer(answer)
-                        console.log(question + answer)
-                    }
-
-                    getAnswerFromServer(onAnswer, answerService.endPoint, question)
-                }
-
-                getQuestionFromServer(getAnswerFrom, s.endPoint)
+                var es = expressionList[i]
+                getQuestion(getAnswer, es.endPoint, answerService.endPoint)
             }
         }
     }
 
-    function getQuestionFromServer(onQuestion, endPoint){
-        request(endPoint, function (error, res, body) {
+    function onAnswer(answer, question) {
+        onFinalAnswer(answer)
+        console.log(question + answer)
+    }
+
+    function getAnswer(question, asEndPoint) {
+
+        getAnswerFromServer(onAnswer, asEndPoint, question)
+    }
+
+    function getQuestion(onQuestion, esEndPoint, asEndPoint){
+        request(esEndPoint, function questionRequestHandler(error, res, body) {
             if (!error && res.statusCode == 200) {
-                onQuestion(body)
+                var question = body
+                onQuestion(question, asEndPoint)
             }
         })
     }
@@ -50,9 +50,9 @@ AnswerDispatcher.prototype.start = function start(onFinalAnswer)
         var qs = querystring.stringify({ q: question})
         var fullUrl = endPoint + '?' + qs
 
-        request(fullUrl, function (error, res, body) {
+        request(fullUrl, function answerRequestHandler(error, res, body) {
             if (!error && res.statusCode == 200) {
-                onAnswer(body)
+                onAnswer(body, question)
             }
         })
     }
