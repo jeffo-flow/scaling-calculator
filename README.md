@@ -46,6 +46,7 @@ d.start()
 ```
 
 ###Developer setup
+Runs on node v5.0.0
 $ sh dev-install.sh
 
 ###Run All Tests
