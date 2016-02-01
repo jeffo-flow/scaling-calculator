@@ -11,9 +11,9 @@ var AnswerDispatcher = function AnswerDispatcher()
 AnswerDispatcher.prototype.start = function start(onFinalAnswer)
 {
     var self = this
-    setInterval(go, 10)
+    setInterval(dispatch, 10)
 
-    function go()
+    function dispatch()
     {
         for (var answerService of self.clusterMap.keys()) {
             var expressionList = self.clusterMap.get(answerService)
@@ -21,38 +21,61 @@ AnswerDispatcher.prototype.start = function start(onFinalAnswer)
             for(var i=0; i<expressionList.length; i++)
             {
                 var es = expressionList[i]
-                getQuestion(getAnswer, es.endPoint, answerService.endPoint)
+                var c = {as: answerService.endPoint, es: es.endPoint}
+
+                question(c).then(answer).then(logResult).catch(error)
             }
         }
     }
 
-    function onAnswer(answer, question) {
-        onFinalAnswer(answer)
-        console.log(question + answer)
+    function logResult (answer) {
+        onFinalAnswer()
+        console.log(answer)
     }
 
-    function getAnswer(question, asEndPoint) {
-
-        getAnswerFromServer(onAnswer, asEndPoint, question)
+    function error(error) {
+        console.log('Error: something went wrong in the answer dispatcher.', error);
     }
 
-    function getQuestion(onQuestion, esEndPoint, asEndPoint){
-        request(esEndPoint, function questionRequestHandler(error, res, body) {
+    function question(config) {
+        var question = new Promise(function (resolve, reject) {
+            getQuestionFromServer(resolve, reject, config)
+        })
+        return question
+    }
+
+    function answer(question) {
+        var answer = new Promise(function (resolve, reject) {
+            getAnswerFromServer(resolve, reject, question.config.as, question.value)
+        })
+        return answer
+    }
+
+    function getQuestionFromServer(resolve, reject, config){
+        request(config.es, function questionRequestHandler(error, res, body) {
             if (!error && res.statusCode == 200) {
                 var question = body
-                onQuestion(question, asEndPoint)
+                resolve({value:question, config:config})
+            }
+            else
+            {
+                reject('could net get the question from the expression server')
             }
         })
     }
 
-    function getAnswerFromServer(onAnswer, endPoint, question)
+    function getAnswerFromServer(resolve, reject, endPoint, question)
     {
         var qs = querystring.stringify({ q: question})
         var fullUrl = endPoint + '?' + qs
 
         request(fullUrl, function answerRequestHandler(error, res, body) {
             if (!error && res.statusCode == 200) {
-                onAnswer(body, question)
+                resolve(question + body)
+            }
+            else
+            {
+                reject('could not get the answer from the answer service')
             }
         })
     }
