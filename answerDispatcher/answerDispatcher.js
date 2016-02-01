@@ -59,7 +59,7 @@ AnswerDispatcher.prototype.start = function start(onFinalAnswer)
             }
             else
             {
-                reject('could net get the question from the expression server')
+                reject('could not get the question from the expression server')
             }
         })
     }
