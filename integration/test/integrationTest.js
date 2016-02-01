@@ -26,7 +26,7 @@ suite('end to end integration', function() {
     })
 
 
-    test('get some answers and perf measurements', function(done) {
+    test('performance using a cluster of 1 answer-service with 3 expression-services', function(done) {
 
         var a0 = {id:1, endPoint: 'http://localhost:2020/'}
         var es0 = {id:1, endPoint: 'http://localhost:4040/'}
